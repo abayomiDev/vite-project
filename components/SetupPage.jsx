@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
+  
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
@@ -45,8 +46,8 @@ export default function MultiStepForm() {
           })}
         </div>
 
-        {/* Step Content */}
-        <div>
+        
+        
           {step === 1 && (
             <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
@@ -120,21 +121,23 @@ export default function MultiStepForm() {
           )}
 
           {step === 4 && (
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">
-                🎉 Account Setup Complete!
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Thank you for signing up. You can now access your dashboard.
-              </p>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                Go to Dashboard
-              </button>
+            <div>
+              <h3 className="text-xl font-semibold mb-4">Almost Done</h3>
+              <input
+                type="number"
+                placeholder=""
+                required
+                className="border p-3 rounded-lg"
+              />
+              <div>
+                <button className="px-6 py-2 border-2 border-yellow-500 text-yellow-600 rounded-full font-medium hover:bg-yellow-500 hover:text-white transition">
+                  ACTIVATE
+                </button>
+              </div>
+              <p className="mt-4 text-sm text-gray-600">Check your Mail and paste code, don’t forget to check spam folder.</p>
+            
             </div>
           )}
-        </div>
-
-        {/* Navigation Buttons */}
         <div className="flex justify-between mt-8">
           {step > 1 ? (
             <button
