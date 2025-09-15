@@ -121,7 +121,7 @@ export default function MultiStepForm() {
           <div>
             <h3 className="text-xl font-semibold mb-4 p-2">Almost Done</h3>
             <input
-              type="number"
+              type="text"
               placeholder="Enter your license"
               required
               className="border w-[20rem] h-10 p-3 rounded-lg"
@@ -148,16 +148,15 @@ export default function MultiStepForm() {
               onClick={nextStep}
               className=" flex items-center gap-2 bg-[#F2BA1D] text-white px-10 py-1 text-sm rounded-full font-medium"
             >
-              NEXT{" "}
+              NEXT
               <span>
-                {" "}
                 <ArrowRight size={16} />
               </span>
             </button>
           ) : null}
 
           {step === 4 ? (
-            <button className="bg-[#F2BA1D] flex items-center gap-2 text-white text-sm px-10 py-1 rounded-full font-medium hover:bg-yellow-600">
+            <button className="bg-[#F2BA1D] flex items-center gap-2 text-white text-sm px-10 py-1 rounded-full font-medium">
               Done <ArrowRight size={16} />
             </button>
           ) : null}
