@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
   
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+  
 
   const steps = [
     "Basic Information",
@@ -122,7 +123,7 @@ export default function MultiStepForm() {
 
           {step === 4 && (
             <div>
-              <h3 className="text-xl font-semibold mb-4">Almost Done</h3>
+              <h3 className="text-xl font-semibold mb-4 p-2">Almost Done</h3>
               <input
                 type="number"
                 placeholder=""
@@ -134,30 +135,31 @@ export default function MultiStepForm() {
                   ACTIVATE
                 </button>
               </div>
-              <p className="mt-4 text-sm text-gray-600">Check your Mail and paste code, don’t forget to check spam folder.</p>
+              <p className="mt-4 text-sm text-gray-600">Check your Mail and paste code, don't forget to check spam folder.</p>
             
             </div>
           )}
-        <div className="flex justify-between mt-8">
-          {step > 1 ? (
+        <div className="flex justify-end gap-4 mt-8">
+          {step >= 1 ? (
             <button
-              onClick={prevStep}
-              className="border border-gray-400 text-gray-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-100"
+              className="border flex items-center gap-2 border-gray-400 text-sm text-gray-600 px-10 py-1 rounded-full font-medium hover:bg-gray-100"
             >
-              ← Back
+              SKIP <ArrowRight size={16} />
             </button>
-          ) : (
-            <button className="border border-yellow-500 text-yellow-500 px-6 py-2 rounded-lg font-medium hover:bg-yellow-100">
-              Skip
-            </button>
-          )}
+          ) : null}
 
           {step < 4 ? (
             <button
               onClick={nextStep}
-              className="bg-yellow-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-yellow-600"
+              className=" flex items-center gap-2 bg-yellow-500 text-white px-10 py-1 text-sm rounded-full font-medium hover:bg-yellow-600"
             >
-              Next →
+             NEXT <span> <ArrowRight size={16} /></span>
+            </button>
+          ) : null}
+
+          {step === 4 ? (
+            <button className="bg-yellow-500 flex items-center gap-2 text-white text-sm px-10 py-1 rounded-full font-medium hover:bg-yellow-600">
+              Done <ArrowRight size={16} />
             </button>
           ) : null}
         </div>
