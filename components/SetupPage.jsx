@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-
-export default function MultiStepForm() {
+import { CircleCheck } from "lucide-react";
+import { CircleX } from "lucide-react"
+export default function SetupPage() {
   const [step, setStep] = useState(1);
+  const [billing, setBilling] = useState("yearly");
+  const [selectedPlan, setSelectedPlan] = useState(null);
+
+  const plans = [
+    { name: "Free", oldPrice: 1000, price: 1000 },
+    { name: "Basic", oldPrice: 1000, price: 4000 },
+    { name: "Standard", oldPrice: 1000, price: 6000 },
+    { name: "Premium", oldPrice: 1000, price: 8000 },
+  ];
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
 
@@ -87,20 +97,80 @@ export default function MultiStepForm() {
         )}
 
         {step === 2 && (
-          <div className="grid gap-4">
-            <p className="text-lg font-medium mb-2">Choose Your Plan:</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="border p-4 rounded-lg hover:shadow-md cursor-pointer">
-                Free Plan
-              </div>
-              <div className="border p-4 rounded-lg hover:shadow-md cursor-pointer">
-                Pro Plan
-              </div>
-              <div className="border p-4 rounded-lg hover:shadow-md cursor-pointer">
-                Enterprise
-              </div>
+          <section className="flex flex-col p-6">
+            <div className="flex items-end  justify-end gap-4 mb-8 mt-2">
+              <button
+                onClick={() => setBilling("yearly")}
+                className={`border flex items-center border-yellow-500 text-sm text-black-600 px-10 py-1 rounded-full font-medium hover:bg-white ${
+                  billing === "yearly"
+                    ? "bg-yellow-400 text-white"
+                    : "bg-gray-100 text-gray-700"
+                }`}
+              >
+                Yearly
+              </button>
+              <button
+                onClick={() => setBilling("monthly")}
+                className={`px-10 py-1 rounded-full font-medium ${
+                  billing === "monthly"
+                    ? "bg-yellow-400 text-white"
+                    : "bg-gray-100 text-gray-700"
+                }`}
+              >
+                Monthly
+              </button>
             </div>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-2 max-w-5xl w-full">
+              {plans.map((plans, idx) => {
+                return (
+                  <div
+                    key={plans.name}
+                    onClick={() => setSelectedPlan(plans.name)}
+                    className={`cursor-pointer rounded-2xl shadow-md border-2 p-2 transition 
+                    ${
+                      selectedPlan === plans.name
+                        ? "border-yellow-400"
+                        : "border-gray-200"
+                    }`}
+                  >
+                    <h3 className="text-lg font-semibold flex justify-center text-gray-900 mb-4">
+                      {plans.name}
+                    </h3>
+                    <ul className="text-[11px] text-gray-600 mt-3 mb-6">
+                      <li className="flex gap-2 justify-start">
+                        <CircleCheck className="w-3 h-3 mb-2 text-yellow-500" />
+                        <span className="" >Information Feature 1</span>
+                      </li>
+                       <li className="flex gap-2 justify-start">
+                        <CircleCheck className="w-3 h-3 mb-2 text-yellow-500" />
+                        <span className="" >Information Feature 2</span>
+                      </li>
+                       <li className="flex gap-2 justify-start">
+                        <CircleCheck className="w-3 h-3 mb-2 text-yellow-500" />
+                        <span className="" >Information Feature 2</span>
+                      </li>
+                      <li className="flex gap-2 justify-start">
+                        <CircleCheck className="w-3 h-3 mb-2 text-yellow-500" />
+                        <span className="" >Information Feature 2</span>
+                      </li>
+                      <li className="flex gap-2 justify-start">
+                        <CircleX className="w-3 h-3 text-[#08183A]" />
+                        <span className="" >Information Feature 2</span>
+                      </li>
+                    </ul>
+                    <span className="flex flex-row justify-center gap-2">
+                      <span className="text-gray-400 line-through text-sm">
+                        ₹{plans.oldPrice}
+                      </span>
+                      <span className="text-xl font-bold text-gray-900">
+                        ₹{plans.price}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
         )}
 
         {step === 3 && (
